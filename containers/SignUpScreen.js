@@ -57,7 +57,7 @@ export default function SignUpScreen({ setToken }) {
               password: password,
             }
           );
-          alert("New user created !");
+          setToken(response.data.token);
         } catch (error) {
           console.log(error.response.data.error);
           if (

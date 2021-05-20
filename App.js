@@ -9,6 +9,7 @@ import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
+import Accomodation from "./containers/Accomodation";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -19,9 +20,9 @@ export default function App() {
 
   const setToken = async (token) => {
     if (token) {
-      AsyncStorage.setItem("userToken", token);
+      await AsyncStorage.setItem("userToken", token);
     } else {
-      AsyncStorage.removeItem("userToken");
+      await AsyncStorage.removeItem("userToken");
     }
 
     setUserToken(token);
@@ -56,7 +57,7 @@ export default function App() {
         </Stack.Navigator>
       ) : (
         // User is signed in
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Tab" options={{ headerShown: false }}>
             {() => (
               <Tab.Navigator
@@ -95,6 +96,10 @@ export default function App() {
                       >
                         {() => <ProfileScreen />}
                       </Stack.Screen>
+                      <Stack.Screen
+                        name="Accomodation"
+                        component={Accomodation}
+                      />
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>

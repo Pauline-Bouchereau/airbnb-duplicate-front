@@ -49,7 +49,7 @@ export default function SignInScreen({ setToken }) {
           { email: email, password: password }
         );
 
-        alert("You are now logged in!");
+        setToken(response.data.token);
       } catch (error) {
         if (error.response.status === 401) {
           setError(2);
