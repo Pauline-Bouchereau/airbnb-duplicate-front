@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, StyleSheet, ActivityIndicator } from "react-native";
 import axios from "axios";
+import MapView from "react-native-maps";
 
 import colors from "../assets/colors";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
 const { darkGrey, lightGrey, salmon, lightSalmon } = colors;
 
 import Stars from "../components/Stars";
@@ -67,6 +67,22 @@ const Accomodation = ({ route }) => {
       >
         {data.description}{" "}
       </Text>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: data.location[1],
+          longitude: data.location[0],
+          latitudeDelta: 0.2,
+          longitudeDelta: 0.2,
+        }}
+      >
+        <MapView.Marker
+          coordinate={{
+            latitude: data.location[1],
+            longitude: data.location[0],
+          }}
+        />
+      </MapView>
     </View>
   );
 };
@@ -125,6 +141,12 @@ const styles = StyleSheet.create({
 
   description: {
     padding: 15,
+    marginBottom: 10,
+  },
+
+  map: {
+    width: "100%",
+    height: 280,
   },
 });
 

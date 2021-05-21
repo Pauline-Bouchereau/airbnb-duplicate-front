@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import { Ionicons } from "@expo/vector-icons";
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
@@ -10,6 +11,13 @@ import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
 import Accomodation from "./containers/Accomodation";
+import GoBackArrow from "./components/GoBackArrow";
+import AroundMe from "./containers/AroundMe";
+
+import { FontAwesome5, FontAwesome, Feather } from "@expo/vector-icons";
+
+import colors from "./assets/colors";
+const { darkGrey, lightGrey, salmon, lightSalmon, yellow } = colors;
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -62,8 +70,8 @@ export default function App() {
             {() => (
               <Tab.Navigator
                 tabBarOptions={{
-                  activeTintColor: "tomato",
-                  inactiveTintColor: "gray",
+                  activeTintColor: salmon,
+                  inactiveTintColor: lightGrey,
                 }}
               >
                 <Tab.Screen
@@ -76,13 +84,21 @@ export default function App() {
                   }}
                 >
                   {() => (
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                      screenOptions={{
+                        headerTitle: () => (
+                          <FontAwesome5
+                            name="airbnb"
+                            size={34}
+                            color={salmon}
+                          />
+                        ),
+                      }}
+                    >
                       <Stack.Screen
                         name="Home"
                         options={{
-                          title: "My App",
-                          headerStyle: { backgroundColor: "red" },
-                          headerTitleStyle: { color: "white" },
+                          headerStyle: { backgroundColor: "white" },
                         }}
                       >
                         {() => <HomeScreen />}
@@ -99,7 +115,39 @@ export default function App() {
                       <Stack.Screen
                         name="Accomodation"
                         component={Accomodation}
+                        options={{
+                          headerLeft: () => (
+                            <FontAwesome
+                              name="arrow-left"
+                              size={24}
+                              color={darkGrey}
+                              //   onPress={() => {
+                              //     navigation.goBak();
+                              //   }}
+                            />
+                          ),
+                        }}
                       />
+                    </Stack.Navigator>
+                  )}
+                </Tab.Screen>
+                <Tab.Screen
+                  name="AroundMe"
+                  options={{
+                    tabBarLabel: "Around me",
+                    tabBarIcon: ({ color, size }) => (
+                      <Feather name={"map-pin"} size={size} color={color} />
+                    ),
+                  }}
+                >
+                  {() => (
+                    <Stack.Navigator>
+                      <Stack.Screen
+                        name="AroundMe"
+                        options={{ title: "AroundMe", tabBarLabel: "AroundMe" }}
+                      >
+                        {() => <AroundMe />}
+                      </Stack.Screen>
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
