@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import MapView from "react-native-maps";
 import * as Location from "expo-location";
 import axios from "axios";
@@ -17,9 +17,13 @@ const AroundMe = () => {
     const getPermissionLocation = async () => {
       try {
         const result = await Location.requestForegroundPermissionsAsync();
+        console.log(result);
+
         let response;
         if (result.status === "granted") {
           const location = await Location.getCurrentPositionAsync();
+          console.log(location.coords.latitude);
+          console.log(location.coords.longitude);
           setLatitude(location.coords.latitude);
           setLongitutde(location.coords.longitude);
           response = await axios.get(
