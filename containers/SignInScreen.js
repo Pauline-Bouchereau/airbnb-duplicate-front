@@ -49,7 +49,7 @@ export default function SignInScreen({ setToken }) {
           { email: email, password: password }
         );
 
-        setToken(response.data.token);
+        setToken(response.data.token, response.data.id);
       } catch (error) {
         if (error.response.status === 401) {
           setError(2);
@@ -122,7 +122,7 @@ export default function SignInScreen({ setToken }) {
           <View style={styles.mainSections}>
             <ErrorMessage error={error} />
             <SubmitButton
-              buttonRole={"Sign Up"}
+              buttonRole={"Sign In"}
               handlePress={handlePress}
               isLoading={isLoading}
             />
@@ -151,23 +151,25 @@ const styles = StyleSheet.create({
   screen: {
     height: deviceHeight,
     alignItems: "center",
-    justifyContent: "space-around",
     paddingBottom: 10,
+    paddingTop: 10,
   },
 
   mainSections: {
     alignItems: "center",
     width: "100%",
+    marginBottom: 100,
   },
 
   logo: {
-    width: 150,
-    height: 180,
+    width: "30%",
+    height: 150,
   },
 
   title: {
     color: darkGrey,
     fontSize: 24,
+    marginTop: 25,
   },
 
   redirectionText: {

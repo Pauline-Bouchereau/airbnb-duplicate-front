@@ -17,13 +17,11 @@ const AroundMe = () => {
     const getPermissionLocation = async () => {
       try {
         const result = await Location.requestForegroundPermissionsAsync();
-        console.log(result);
 
         let response;
         if (result.status === "granted") {
           const location = await Location.getCurrentPositionAsync();
-          console.log(location.coords.latitude);
-          console.log(location.coords.longitude);
+
           setLatitude(location.coords.latitude);
           setLongitutde(location.coords.longitude);
           response = await axios.get(

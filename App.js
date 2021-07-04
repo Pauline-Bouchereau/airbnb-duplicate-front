@@ -25,12 +25,15 @@ const Stack = createStackNavigator();
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
-  const setToken = async (token) => {
-    if (token) {
+  const setToken = async (token, id) => {
+    if (token && id) {
       await AsyncStorage.setItem("userToken", token);
+      await AsyncStorage.setItem("userId", id);
     } else {
       await AsyncStorage.removeItem("userToken");
+      await AsyncStorage.removeItem("userId");
     }
 
     setUserToken(token);
@@ -41,11 +44,12 @@ export default function App() {
     const bootstrapAsync = async () => {
       // We should also handle error for production apps
       const userToken = await AsyncStorage.getItem("userToken");
-
+      const userId = await AsyncStorage.getItem("userId");
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
       setIsLoading(false);
       setUserToken(userToken);
+      setUserId(userId);
     };
 
     bootstrapAsync();
@@ -55,7 +59,7 @@ export default function App() {
     <NavigationContainer>
       {isLoading ? null : userToken === null ? ( // We haven't finished checking for the token yet
         // No token found, user isn't signed in
-        <Stack.Navigator initialRouteName="SignUp">
+        <Stack.Navigator initialRouteName="SignIn">
           <Stack.Screen name="SignIn" options={{ headerShown: false }}>
             {() => <SignInScreen setToken={setToken} />}
           </Stack.Screen>
@@ -141,7 +145,17 @@ export default function App() {
                   }}
                 >
                   {() => (
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                      screenOptions={{
+                        headerTitle: () => (
+                          <FontAwesome5
+                            name="airbnb"
+                            size={34}
+                            color={salmon}
+                          />
+                        ),
+                      }}
+                    >
                       <Stack.Screen
                         name="AroundMe"
                         options={{ title: "AroundMe", tabBarLabel: "AroundMe" }}
@@ -152,25 +166,37 @@ export default function App() {
                   )}
                 </Tab.Screen>
                 <Tab.Screen
-                  name="Settings"
+                  name="Profile"
                   options={{
-                    tabBarLabel: "Settings",
+                    tabBarLabel: "My profile",
                     tabBarIcon: ({ color, size }) => (
-                      <Ionicons
-                        name={"ios-options"}
-                        size={size}
-                        color={color}
-                      />
+                      <Feather name={"user"} size={size} color={color} />
                     ),
                   }}
                 >
                   {() => (
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                      screenOptions={{
+                        headerTitle: () => (
+                          <FontAwesome5
+                            name="airbnb"
+                            size={34}
+                            color={salmon}
+                          />
+                        ),
+                      }}
+                    >
                       <Stack.Screen
-                        name="Settings"
+                        name="Profile"
                         options={{ title: "Settings", tabBarLabel: "Settings" }}
                       >
-                        {() => <SettingsScreen setToken={setToken} />}
+                        {() => (
+                          <ProfileScreen
+                            setToken={setToken}
+                            userToken={userToken}
+                            userId={userId}
+                          />
+                        )}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}

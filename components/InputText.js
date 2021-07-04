@@ -15,6 +15,7 @@ const InputText = ({ placeholderText, secureBoolean, value, setValue }) => {
       }}
       value={value}
       keyboardType={placeholderText === "email" ? "email-address" : "default"}
+      autoCapitalize="none"
     />
   );
 };

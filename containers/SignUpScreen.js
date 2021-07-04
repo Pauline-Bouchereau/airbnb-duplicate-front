@@ -57,7 +57,7 @@ export default function SignUpScreen({ setToken }) {
               password: password,
             }
           );
-          setToken(response.data.token);
+          setToken(response.data.token, response.data.id);
         } catch (error) {
           console.log(error.response.data.error);
           if (
@@ -199,12 +199,12 @@ const styles = StyleSheet.create({
   mainSections: {
     alignItems: "center",
     width: "100%",
-    marginBottom: 50,
+    marginBottom: 25,
   },
 
   logo: {
-    width: 150,
-    height: 180,
+    width: "30%",
+    height: 150,
   },
 
   title: {
