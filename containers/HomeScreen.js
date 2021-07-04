@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import {
-  Button,
-  Text,
-  View,
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-} from "react-native";
+import { View, ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import axios from "axios";
 
 import AccomodationVignette from "../components/AccomodationVignette";

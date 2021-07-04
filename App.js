@@ -9,7 +9,6 @@ import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
-import SettingsScreen from "./containers/SettingsScreen";
 import Accomodation from "./containers/Accomodation";
 import GoBackArrow from "./components/GoBackArrow";
 import AroundMe from "./containers/AroundMe";

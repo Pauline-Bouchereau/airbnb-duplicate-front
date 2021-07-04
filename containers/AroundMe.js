@@ -77,6 +77,10 @@ const styles = StyleSheet.create({
   map: {
     height: "100%",
   },
+
+  activityIndicator: {
+    marginTop: 50,
+  },
 });
 
 export default AroundMe;

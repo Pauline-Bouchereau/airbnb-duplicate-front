@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Image, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import axios from "axios";
 import MapView from "react-native-maps";
 
@@ -35,7 +42,7 @@ const Accomodation = ({ route }) => {
       style={styles.activityIndicator}
     />
   ) : (
-    <View style={styles.accomodations}>
+    <ScrollView style={styles.accomodations}>
       <View>
         <Image source={{ uri: data.photos[0].url }} style={styles.img} />
         <View style={styles.priceView}>
@@ -83,7 +90,7 @@ const Accomodation = ({ route }) => {
           }}
         />
       </MapView>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -147,6 +154,10 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: 280,
+  },
+
+  activityIndicator: {
+    marginTop: 50,
   },
 });
 

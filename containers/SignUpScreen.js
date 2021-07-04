@@ -59,7 +59,6 @@ export default function SignUpScreen({ setToken }) {
           );
           setToken(response.data.token, response.data.id);
         } catch (error) {
-          console.log(error.response.data.error);
           if (
             error.response.data.error ===
             "This username already has an account."
